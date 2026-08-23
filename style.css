@@ -1,0 +1,162 @@
+/* WordBog site — skinned like the game: dark-teal board tray, cream dice,
+   teal accent. Palette mirrored from the app (DieView/BoardTray/AccentColor). */
+:root {
+  --tray-top: #1c756b;
+  --tray-bottom: #083833;
+  --bg-top: #0b3b35;
+  --bg-bottom: #06231f;
+  --tile: #f7f7f2;
+  --tile-edge: #b3aea1;
+  --ink: #121a29;
+  --text: #e9f2f0;
+  --text-dim: rgba(233, 242, 240, 0.72);
+  --accent: #008080;
+  --accent-bright: #4fd1c5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
+
+/* Nav — slim tray bar */
+nav {
+  background: linear-gradient(180deg, var(--tray-top), var(--tray-bottom));
+  border-radius: 0 0 22px 22px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+nav .brand {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  color: var(--tile);
+  text-decoration: none;
+  margin-right: auto;
+}
+nav a:not(.brand) {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+nav a:not(.brand):hover { color: var(--tile); background: rgba(255, 255, 255, 0.08); }
+
+/* Dice card section container */
+.tray {
+  background: linear-gradient(180deg, var(--tray-top), var(--tray-bottom));
+  border-radius: 24px;
+  padding: 26px 28px;
+  margin-top: 26px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.tray h2 { margin: 0 0 10px; font-size: 22px; color: var(--tile); }
+.tray p, .tray li { color: var(--text); }
+.tray p { margin: 10px 0; }
+.tray a { color: var(--accent-bright); }
+
+/* Cream dice — letters, badges, chips */
+.die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.9em;
+  height: 1.9em;
+  padding: 0 0.3em;
+  margin: 0 2px;
+  background: var(--tile);
+  color: var(--ink);
+  border-radius: 7px;
+  border: 1px solid var(--tile-edge);
+  box-shadow: 0 2px 0 var(--tile-edge), 0 6px 10px rgba(0, 0, 0, 0.25);
+  font-weight: 800;
+  font-size: 0.95em;
+  vertical-align: middle;
+}
+.die.qu { font-size: 0.8em; }
+
+/* Example board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  gap: 8px;
+  margin: 18px auto 6px;
+  width: max-content;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.22);
+}
+.board .die { width: 56px; height: 56px; font-size: 22px; margin: 0; }
+.board .die.path {
+  background: color-mix(in srgb, var(--tile) 72%, var(--accent) 28%);
+  outline: 3px solid var(--accent-bright);
+  outline-offset: -1px;
+  transform: scale(1.06);
+}
+.board-caption { text-align: center; color: var(--text-dim); font-size: 14px; margin: 4px 0 0; }
+
+/* Scoring chips */
+.score-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+.score-chip {
+  background: var(--tile);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 2px 0 var(--tile-edge);
+}
+.score-chip span { color: var(--accent); font-weight: 800; }
+
+footer {
+  margin-top: 40px;
+  color: var(--text-dim);
+  font-size: 13px;
+  text-align: center;
+}
+footer a { color: var(--text-dim); }
+
+h1 {
+  font-size: 34px;
+  margin: 34px 0 6px;
+  color: var(--tile);
+  letter-spacing: 0.2px;
+}
+.tagline { color: var(--text-dim); margin: 0 0 8px; font-size: 18px; }
+
+ul.checks { list-style: none; padding: 0; margin: 10px 0; }
+ul.checks li { padding: 5px 0 5px 28px; position: relative; }
+ul.checks li::before {
+  content: "✓";
+  position: absolute;
+  left: 4px;
+  color: var(--accent-bright);
+  font-weight: 800;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--tile);
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  box-shadow: 0 3px 0 var(--tile-edge), 0 8px 16px rgba(0, 0, 0, 0.3);
+  margin: 8px 10px 0 0;
+}
+.btn:hover { filter: brightness(1.04); }

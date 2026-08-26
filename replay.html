@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WordBog — shared board</title>
+<!-- Shared replay links land here: one tap into the game if WordBog is
+     installed, otherwise the app-store story. -->
+<meta name="description" content="Someone shared a WordBog board with you. Open it in the app — same dice, same round.">
+<meta property="og:title" content="A WordBog board was shared with you">
+<meta property="og:description" content="Open this exact board in WordBog — same dice, same clock. Free word-board trainer for iPhone and iPad, everything on-device.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  .seed {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--tile);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    padding: 10px 22px;
+    display: inline-block;
+    margin: 6px 0 2px;
+  }
+  .btn-row { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+  .btn.primary { justify-content: center; text-align: center; }
+  #missing { display: none; margin-top: 20px; }
+  .muted { color: var(--text-dim); font-size: 14px; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">WordBog</a>
+  <a href="how-to-play.html">How to play</a>
+  <a href="privacy.html">Privacy</a>
+</nav>
+
+<div class="wrap">
+  <div class="tray" style="text-align:center;">
+    <h1 style="margin-bottom:4px;">A shared board awaits</h1>
+    <p class="tagline">Same dice for everyone. Same clock. Find more words than your friend.</p>
+
+    <p id="boardline">Board seed</p>
+    <span class="seed" id="seed">&mdash;</span>
+    <p class="muted" id="meta"></p>
+
+    <div class="btn-row">
+      <a class="btn primary" id="open" href="#">Open in WordBog</a>
+    </div>
+
+    <!-- Shown only when the scheme bounce doesn't land (app not installed) -->
+    <div id="missing">
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.15);margin:22px 0;">
+      <h2>Don't have WordBog yet?</h2>
+      <p>WordBog is a word-board trainer for iPhone and iPad &mdash; solo timed
+      rounds, a Daily Bog everyone plays together, head-to-head multiplayer,
+      and a photo solver. Everything runs on your device.</p>
+      <!-- TODO(launch): point at the App Store listing once live.
+           Until then this goes to the site home page. -->
+      <a class="btn primary" href="index.html" id="get">Get WordBog</a>
+      <p class="muted">Already installed? Your device may have blocked the
+      automatic handoff &mdash; tap "Open in WordBog" above again.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var seed = (params.get('seed') || '').replace(/\D/g, '');
+  var size = params.get('size') === '5' ? '5' : '4';
+  var board = size === '5' ? 'bigBog5x5' : 'classic4x4';
+  var duration = (params.get('duration') || '').replace(/\D/g, '');
+
+  document.getElementById('seed').textContent = seed ? seed : '(none)';
+  document.getElementById('meta').textContent =
+    size + '\u00d7' + size + ' board' +
+    (duration && Number(duration) > 0
+      ? ' \u00b7 ' + Math.floor(duration / 60) + ':' + String(Number(duration) % 60).padStart(2, '0')
+      : '');
+
+  // Without a valid seed there's nothing to hand off: hide the button.
+  var open = document.getElementById('open');
+  if (!seed) { open.style.display = 'none'; return; }
+
+  var deep = 'wordbog://play?seed=' + encodeURIComponent(seed) +
+             '&size=' + size + '&board=' + board;
+  if (duration) { deep += '&duration=' + duration; }
+
+  open.addEventListener('click', function (ev) {
+    ev.preventDefault();
+    // Redirect attempt: when the app handles it this page goes to the
+    // background; when nothing does, browsers typically stay put — reveal
+    // the install block after a short grace period.
+    var left = Date.now();
+    window.location.href = deep;
+    setTimeout(function () {
+      if (!document.hidden && Date.now() - left < 2500) {
+        document.getElementById('missing').style.display = 'block';
+        document.getElementById('open').style.display = 'none';
+      }
+    }, 1200);
+  });
+})();
+</script>
+</body>
+</html>

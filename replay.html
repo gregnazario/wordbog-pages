@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WordBog — shared board</title>
-<!-- Shared replay links land here: one tap into the game if WordBog is
+<title>Word Rally — shared board</title>
+<!-- Shared replay links land here: one tap into the game if Word Rally is
      installed, otherwise the app-store story. -->
-<meta name="description" content="Someone shared a WordBog board with you. Open it in the app — same dice, same round.">
-<meta property="og:title" content="A WordBog board was shared with you">
-<meta property="og:description" content="Open this exact board in WordBog — same dice, same clock. Free word-board trainer for iPhone and iPad, everything on-device.">
+<meta name="description" content="Someone shared a Word Rally board with you. Open it in the app — same dice, same round.">
+<meta property="og:title" content="A Word Rally board was shared with you">
+<meta property="og:description" content="Open this exact board in Word Rally — same dice, same clock. Free word-board trainer for iPhone and iPad, everything on-device.">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -32,7 +32,7 @@
 </head>
 <body>
 <nav>
-  <a class="brand" href="index.html">WordBog</a>
+  <a class="brand" href="index.html">Word Rally</a>
   <a href="how-to-play.html">How to play</a>
   <a href="privacy.html">Privacy</a>
 </nav>
@@ -47,21 +47,21 @@
     <p class="muted" id="meta"></p>
 
     <div class="btn-row">
-      <a class="btn primary" id="open" href="#">Open in WordBog</a>
+      <a class="btn primary" id="open" href="#">Open in Word Rally</a>
     </div>
 
     <!-- Shown only when the scheme bounce doesn't land (app not installed) -->
     <div id="missing">
       <hr style="border:none;border-top:1px solid rgba(255,255,255,0.15);margin:22px 0;">
-      <h2>Don't have WordBog yet?</h2>
-      <p>WordBog is a word-board trainer for iPhone and iPad &mdash; solo timed
-      rounds, a Daily Bog everyone plays together, head-to-head multiplayer,
+      <h2>Don't have Word Rally yet?</h2>
+      <p>Word Rally is a word-board trainer for iPhone and iPad &mdash; solo timed
+      rounds, a Daily Rally everyone plays together, head-to-head multiplayer,
       and a photo solver. Everything runs on your device.</p>
       <!-- TODO(launch): point at the App Store listing once live.
            Until then this goes to the site home page. -->
-      <a class="btn primary" href="index.html" id="get">Get WordBog</a>
+      <a class="btn primary" href="index.html" id="get">Get Word Rally</a>
       <p class="muted">Already installed? Your device may have blocked the
-      automatic handoff &mdash; tap "Open in WordBog" above again.</p>
+      automatic handoff &mdash; tap "Open in Word Rally" above again.</p>
     </div>
   </div>
 </div>
@@ -85,7 +85,7 @@
   var open = document.getElementById('open');
   if (!seed) { open.style.display = 'none'; return; }
 
-  var deep = 'wordbog://play?seed=' + encodeURIComponent(seed) +
+  var deep = 'wordrally://play?seed=' + encodeURIComponent(seed) +
              '&size=' + size + '&board=' + board;
   if (duration) { deep += '&duration=' + duration; }
 

@@ -8,8 +8,8 @@
 //              by the built index.html, so the shell boots fully offline.
 // The literal values below are the unstamped fallback and never ship from a
 // stamped build.
-const CACHE = "wordbog-party-961991b5";
-const PRECACHE = ["./", "./index.html", "./assets/index-DYPnvglh.css", "./assets/index-DvIl3OeV.js"];
+const CACHE = "wordbog-party-60644193";
+const PRECACHE = ["./", "./index.html", "./assets/index-Cb1bnV95.css", "./assets/index-Dgl--k17.js"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
   self.skipWaiting();
